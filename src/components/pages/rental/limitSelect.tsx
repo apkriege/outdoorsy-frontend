@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { LimitSelectProps } from "./interfaces";
-
+import { LimitSelectProps } from "./types";
 
 export const LimitSelect: React.FC<LimitSelectProps> = ({ value, onLimitChange }: any) => {
   const [limit, setLimit] = useState(value); // Initial limit value
