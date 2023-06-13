@@ -5,7 +5,7 @@ This is a simple SPA that uses the Outdoorsy API to search for RVs and display t
 First, run the development server:
 
 ```bash
-npm run install
+npm install
 npm run dev
 ```
 
