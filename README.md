@@ -1,4 +1,6 @@
-This is a simple SPA that uses the Outdoorsy API to search for RVs and display them in a list. The user can then click on a listing to see more details about the RV (future). The user can also filter the results.
+# Outdoorsy Frontend 
+
+This is a simple SPA created with NextJS that uses the Outdoorsy API to search for RVs and display them in a list. The user can then click on a listing to see more details about the RV (future). The user can also filter the results.
 
 ## Getting Started
 
