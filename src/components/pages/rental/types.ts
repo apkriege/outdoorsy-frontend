@@ -1,4 +1,4 @@
-export interface Trailer {
+export type Trailer = {
   id: number;
   attributes: {
     name: string;
@@ -24,18 +24,18 @@ export interface Trailer {
   };
 }
 
-export interface Image {
+export type Image = {
   id: number;
   attributes: {
     url: string;
   };
 }
 
-export interface ImageHashMap<Image> {
+export type ImageHashMap<Image> = {
   [key: number]: Image;
 }
 
-export interface Params {
+export type Params = {
   filter: {
     keywords: string | "";
   };
