@@ -24,13 +24,6 @@ export default function Index() {
 
   const getTrailers = async () => {
     try {
-      // const trailers = await axios.get(`https://search.outdoorsy.com/rentals`, { params: params });
-
-      // const images = createHashMapForImages(trailers.data.included);
-      // setImages(images);
-
-      // const modeledTrailers = modelTrailers(trailers.data.data);
-      // setTrailers(modeledTrailers);
       const { trailers, images }: any = await rentalApiCall(params);
       setTrailers(trailers);
       setImages(images);
@@ -39,22 +32,7 @@ export default function Index() {
       console.log(err);
     }
   };
-
-  // const createHashMapForImages = (images: Image[]) => {
-  //   const hashMap: ImageHashMap<Image> = images.reduce((acc, image) => {
-  //     return { ...acc, [image.id]: image };
-  //   }, {});
-
-  //   return hashMap;
-  // };
-
-  // const modelTrailers = (trailers: Trailer[]) => {
-  //   return trailers.map((trailer: Trailer) => {
-  //     const imageId = trailer.relationships.primary_image.data.id;
-  //     return { ...trailer, image: images[imageId] };
-  //   });
-  // };
-
+  
   return (
     <main>
       <div className="p-5 bg-gray-100">
