@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Image from "next/image";
 
 // NEEDS
 // 1. Search bar
@@ -37,19 +38,52 @@ interface ImageHashMap<Image> {
   [key: number]: Image;
 }
 
+interface Params {
+  filter: {
+    keywords: string | "";
+  };
+  page: {
+    limit: number | null;
+    offset: number | null;
+  };
+}
+
+const LimitSelect = ({ value, onLimitChange }: any) => {
+  const [limit, setLimit] = useState(10); // Initial limit value
+
+  const handleLimitChange = (event: any) => {
+    const selectedLimit = parseInt(event.target.value);
+    setLimit(selectedLimit);
+    onLimitChange(selectedLimit);
+    // Perform any further actions based on the selected limit
+  };
+
+  return (
+    <div>
+      <label htmlFor="limit">Items per page:</label>
+      <select id="limit" className="border border-gray-300 rounded-md px-3 py-2" value={limit} onChange={handleLimitChange}>
+        <option value={5}>5</option>
+        <option value={10}>10</option>
+        <option value={15}>15</option>
+        <option value={20}>20</option>
+      </select>
+    </div>
+  );
+};
+
 export default function Home() {
   const [trailers, setTrailers] = useState<Trailer[]>([]);
   const [images, setImages] = useState<ImageHashMap<Image>>([]);
-  const [search, setSearch] = useState<string>("");
+  const [params, setParams] = useState<Params>({ filter: { keywords: "" }, page: { limit: 10, offset: null } });
 
   useEffect(() => {
-    getTrailers("");
+    getTrailers();
   }, []);
 
-  const getTrailers = async (search: string) => {
+  const getTrailers = async () => {
     try {
-      const trailers = await axios.get(`https://search.outdoorsy.com/rentals?filter[${search}]`);
-      console.log(trailers.data.data.length)
+      const trailers = await axios.get(`https://search.outdoorsy.com/rentals`, { params: params });
+      console.log(trailers.data.data.length);
 
       const images = createHashMapForImages(trailers.data.included);
       setImages(images);
@@ -80,17 +114,35 @@ export default function Home() {
     <main>
       <div className="p-5 bg-gray-100">
         <h1 className="text-3xl font-light">Find Your Dream Trailer</h1>
-        <label className="block mt-5">Search</label>
-        <input 
-          type="text" 
-          className="border border-gray-300 rounded-md h-10 w-1/2 p-3" 
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
-          onClick={() => getTrailers(search)}
-        >Search</button>
-
+        <div className="filters">
+          <div className="search-bar">
+          <label className="block mt-5">Search</label>
+          <input
+            type="text"
+            className="border border-gray-300 rounded-md h-10 w-1/2 p-3"
+            onChange={(e) =>
+              setParams({
+                ...params,
+                filter: { ...params.filter, keywords: e.target.value },
+              })
+            }
+          />
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-3"
+            onClick={() => getTrailers()}
+          >
+            Search
+          </button>
+          </div>
+          <div className="optional-filters">
+            <LimitSelect value={params.page.limit} onLimitChange={
+              (limit: number) => setParams({
+                ...params,
+                page: { ...params.page, limit: limit },
+              })
+            } />
+          </div>
+        </div>
 
         <div>
           <h3 className="text-xl font-bold my-3">Results</h3>
@@ -99,7 +151,8 @@ export default function Home() {
               <div className="grid grid-cols-5 gap-4">
                 <div className="col-span-1">
                   <img
-                    className=""
+                    height={100}
+                    width={100}
                     src={images[trailer.relationships.primary_image.data.id].attributes.url || ""}
                     alt=""
                   />
