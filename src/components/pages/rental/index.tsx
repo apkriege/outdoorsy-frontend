@@ -73,6 +73,7 @@ export default function Index() {
               onLimitChange={(limit: number) => setParams({ ...params, page: { ...params.page, limit: limit } })}
             />
           </div>
+          {(trailers.length === 0) && <div className="text-center">No results found</div>}
           {trailers.map((trailer) => (
             <TrailerCard key={trailer.id} {...trailer} />
           ))}

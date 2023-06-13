@@ -20,6 +20,8 @@ export const rentalApiCall = async (params: Params) => {
 
 // USED FOR A CAROUSEL OF IMAGES ON THE RENTAL PAGE
 const createHashMapForImages = (images: Image[]) => {
+  if (!images || images.length === 0) return {};
+
   const hashMap: ImageHashMap<Image> = images.reduce((acc, image) => {
     return { ...acc, [image.id]: image };
   }, {});
@@ -28,6 +30,8 @@ const createHashMapForImages = (images: Image[]) => {
 };
 
 const modelTrailers = (trailers: Trailer[]) => {
+  if (!trailers || trailers.length === 0) return [];
+
   return trailers.map((trailer: Trailer) => {
     return { ...trailer };
   });

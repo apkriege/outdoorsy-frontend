@@ -32,7 +32,9 @@ export const  TrailerCard: React.FC<Trailer> = ({ id, attributes, image }: any) 
             <h2 className="text-xl font-normal mb-0 text-slate-800 hover:text-blue-600 hover:cursor-pointer hover:font-medium">
               {attributes.name}
             </h2>
-            <span className="text-xs capitalize mt-0 italic">{attributes.type}</span>
+            <span className="text-xs capitalize mt-0 italic">
+              {attributes.location.city}, {attributes.location.state} {attributes.location.country} - {(attributes.type.length === 1) ? `Class ${attributes.type}` : attributes.type }
+              </span>
           </div>
           <div className="text-sm mt-6">
             <p className="line-clamp-2 text-xs">{attributes.description}</p>

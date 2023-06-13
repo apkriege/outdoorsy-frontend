@@ -9,6 +9,11 @@ export interface Trailer {
     average_ratings: {
       score: number | null;
     };
+    location: {
+      city: string;
+      state: string;
+      country: string;
+    };
   };
   relationships: {
     primary_image: {
