@@ -1,5 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+// import logo from '../public/loremipsum-250.svg'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,7 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <div className="navbar border-b border-gray-300">
+          <div className="container py-3 px-5">
+            {/* <img src={logo} alt="" /> */}
+            <Image src="./logoipsum-260.svg" alt="" width={150} height={150} />
+          </div>
+        </div>
+        {children}
+      </body>
     </html>
   )
 }
