@@ -32,10 +32,16 @@ export default function Index() {
       console.log(err);
     }
   };
+
+  const handleKeyDown = (e: any) => {
+    if (e.key === 'Enter') {
+      getTrailers();
+    }
+  }
   
   return (
     <main>
-      <div className="p-5 bg-gray-100">
+      <div className="p-5">
         <div className="container mx-auto w-5/6">
           <h1 className="text-3xl font-light">Find Your Dream Trailer Rental</h1>
           <div className="filters mt-3 flex">
@@ -50,6 +56,7 @@ export default function Index() {
                     filter: { ...params.filter, keywords: e.target.value },
                   })
                 }
+                onKeyDown={handleKeyDown}
               />
             </div>
             <button

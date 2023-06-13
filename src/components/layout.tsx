@@ -6,7 +6,7 @@ export default function Layout({ children }: any) {
           <img src="./logoipsum-260.svg" alt="" width={150} height={150} />
         </div>
       </div>
-      <main>{children}</main>
+      <div className="bg-gray-100 min-h-screen">{children}</div>
     </>
   );
 }
